@@ -1,0 +1,190 @@
+﻿<!--  Copyright (c) Microsoft Corporation and Contributors.  -->
+<!--  Licensed under the MIT License.  -->
+
+<Window
+    x:Class="TennisLabel.CustomerDetailWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:TennisLabel"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="CustomerDetailWindowObject"
+    mc:Ignorable="d">
+
+    <Grid BorderThickness="1">
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
+                <GradientStop Offset="0" Color="AntiqueWhite" />
+                <GradientStop Offset="1.1" Color="LightGray" />
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <!--
+        <Border
+            Grid.Row="0"
+            Grid.Column="0"
+            BorderBrush="LightGray"
+            BorderThickness="1,1,1,1" />
+        <Border
+            Grid.Row="0"
+            Grid.Column="1"
+            BorderBrush="LightGray"
+            BorderThickness="1,1,1,1" />
+        <Border
+            Grid.Row="1"
+            Grid.Column="1"
+            BorderBrush="LightGray"
+            BorderThickness="1,1,1,1" />
+        <Border
+            Grid.Row="1"
+            Grid.Column="0"
+            BorderBrush="LightGray"
+            BorderThickness="1,1,1,1" />
+        -->
+        <TextBlock
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="20,30,0,0"
+            VerticalAlignment="Center"
+            Style="{StaticResource BaseTextBlockStyle}"
+            Text="Vezetéknév"
+            TextAlignment="Left" />
+        <TextBox
+            x:Name="tb_Lastname"
+            Grid.Row="0"
+            Grid.Column="1"
+            Width="Auto"
+            Height="30"
+            Margin="0,30,30,0"
+            VerticalAlignment="Top"
+            Text="{x:Bind CustomerDetailViewModel.Customer.Lastname, Mode=TwoWay}" />
+        <TextBlock
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="20,0,0,0"
+            VerticalAlignment="Bottom"
+            Style="{StaticResource BaseTextBlockStyle}"
+            Text="Keresztnév"
+            TextAlignment="Left" />
+        <TextBox
+            x:Name="tb_Firstname"
+            Grid.Row="1"
+            Grid.Column="1"
+            Width="Auto"
+            Height="30"
+            Margin="0,0,30,0"
+            VerticalAlignment="Bottom"
+            Text="{x:Bind CustomerDetailViewModel.Customer.Firstname, Mode=TwoWay}" />
+        <TextBlock
+            Grid.Row="2"
+            Grid.Column="0"
+            Margin="20,0,0,0"
+            VerticalAlignment="Bottom"
+            Style="{StaticResource BaseTextBlockStyle}"
+            Text="Telefon"
+            TextAlignment="Left" />
+        <TextBox
+            x:Name="tb_Telephone"
+            Grid.Row="2"
+            Grid.Column="1"
+            Width="Auto"
+            Height="30"
+            Margin="0,0,30,0"
+            VerticalAlignment="Bottom"
+            Text="{x:Bind CustomerDetailViewModel.Customer.Phone, Mode=TwoWay}" />
+        <TextBlock
+            Grid.Row="3"
+            Grid.Column="0"
+            Margin="20,0,0,0"
+            VerticalAlignment="Bottom"
+            Style="{StaticResource BaseTextBlockStyle}"
+            Text="Irányító szám"
+            TextAlignment="Left" />
+        <TextBox
+            x:Name="tb_Zip"
+            Grid.Row="3"
+            Grid.Column="1"
+            Width="Auto"
+            Height="30"
+            Margin="0,0,100,0"
+            VerticalAlignment="Bottom"
+            Text="{x:Bind CustomerDetailViewModel.Customer.Zip, Mode=TwoWay}" />
+        <TextBlock
+            Grid.Row="4"
+            Grid.Column="0"
+            Margin="20,0,0,0"
+            VerticalAlignment="Bottom"
+            Style="{StaticResource BaseTextBlockStyle}"
+            Text="Ország"
+            TextAlignment="Left" />
+        <ComboBox
+            x:Name="cb_Country"
+            Grid.Row="4"
+            Grid.Column="1"
+            Width="230"
+            VerticalAlignment="Bottom"
+            ItemsSource="{x:Bind CustomerDetailViewModel.Countries}"
+            SelectedIndex="{x:Bind CustomerDetailViewModel.selectedCountryIndex, Mode=TwoWay}" />
+
+        <TextBlock
+            Grid.Row="5"
+            Grid.Column="0"
+            Margin="20,0,0,0"
+            VerticalAlignment="Bottom"
+            Style="{StaticResource BaseTextBlockStyle}"
+            Text="Város"
+            TextAlignment="Left" />
+        <TextBox
+            x:Name="tb_City"
+            Grid.Row="5"
+            Grid.Column="1"
+            Width="Auto"
+            Height="30"
+            Margin="0,0,30,0"
+            VerticalAlignment="Bottom"
+            Text="{x:Bind CustomerDetailViewModel.Customer.City}" />
+        <Button
+            Grid.Row="7"
+            Grid.Column="0"
+            Width="Auto"
+            Margin="30,0,0,20"
+            Padding="10,10,10,10"
+            VerticalAlignment="Bottom"
+            HorizontalContentAlignment="Center"
+            Command="{x:Bind CustomerDetailViewModel.saveCustomerCommand}"
+            CommandParameter="{Binding ElementName=CustomerDetailWindowObject}"
+            FontSize="20">
+            <TextBlock>
+                <Run FontFamily="Segoe MDL2 Assets">&#xE74E;</Run>
+                Mentés</TextBlock>
+        </Button>
+        <Button
+            Grid.Row="7"
+            Grid.Column="1"
+            Width="Auto"
+            Margin="0,0,0,20"
+            Padding="10,10,10,10"
+            VerticalAlignment="Bottom"
+            HorizontalContentAlignment="Center"
+            FontSize="20">
+            <TextBlock VerticalAlignment="Center" TextWrapping="Wrap">
+                <Run FontFamily="Segoe MDL2 Assets">&#xE711;</Run>
+                <Run>Mégsem</Run>
+            </TextBlock>
+
+
+        </Button>
+    </Grid>
+</Window>

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "TennisLabel (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "TennisLabel (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

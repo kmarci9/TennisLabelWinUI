@@ -37,13 +37,14 @@ namespace TennisLabel.ViewModels
             FillCountries();
             this._customerService = customerService;
             this._mainvm = mainvm;
+            this.operation = customer == null ? Operation.NewEntity : Operation.Modify;
             Customer = customer == null ? new Customer() : customer;
             initViewModel();
         }
 
         private void initViewModel()
         {
-            this.operation = Customer == null ? Operation.NewEntity : Operation.Modify;
+            
             this.selectedCountryIndex = 51;//Hungary
             if (this.Customer.Country != null) this.selectedCountryIndex = Countries.IndexOf(this.Customer.Country);
 
@@ -57,8 +58,11 @@ namespace TennisLabel.ViewModels
 
             if (operation == Operation.NewEntity)
             {
-                _customerService.CreateCustomer(this.Customer);
+                int id = _customerService.CreateCustomer(this.Customer);
+                this.Customer.ID = id;
                 _mainvm.Customers.Add(this.Customer);
+
+
             }
             else
             {

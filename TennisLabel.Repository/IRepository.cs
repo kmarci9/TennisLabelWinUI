@@ -20,13 +20,13 @@ namespace TennisLabel.Repository
         /// Creates an item in DB.
         /// </summary>
         /// <param name="item">instance.</param>
-        void Create(T item);
+        int Create(T item);
 
         /// <summary>
         /// Delete item.
         /// </summary>
         /// <param name="id">key id.</param>
-        void Delete(T Entity);
+        bool Delete(int id);
 
         /// <summary>
         /// Updates an item.
@@ -36,9 +36,15 @@ namespace TennisLabel.Repository
         void Update(T entity);
 
         /// <summary>
+        /// Detaches entity
+        /// </summary>
+        /// <param name="entity"></param>
+        void Detach(T entity);
+
+        /// <summary>
         /// Gets The whole table.
         /// </summary>
         /// <returns>List with every object.</returns>
-        List<T> GetTable();
+        IQueryable<T> GetTable();
     }
 }

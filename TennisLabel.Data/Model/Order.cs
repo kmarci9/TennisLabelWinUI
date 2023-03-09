@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TennisLabel.Data
-{
-    public partial class Order
-    {
-        public int PkOrderId { get; set; }
-        public DateTime? OrderStartdate { get; set; }
-        public DateTime? OrderEnddate { get; set; }
-        public string Comments { get; set; }
-        public int? FkCustomerId { get; set; }
+namespace TennisLabel.Data;
 
-        public virtual Customer FkCustomer { get; set; }
-    }
+public partial class Order
+{
+    public long PkOrderId { get; set; }
+
+    public string DtOrderStartdate { get; set; }
+
+    public string DtOrderEnddate { get; set; }
+
+    public string Comments { get; set; }
+
+    public long? FkCustomerId { get; set; }
+
+    public virtual Customer FkCustomer { get; set; }
 }

@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft Corporation and Contributors.
 // Licensed under the MIT License.
 
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -14,7 +16,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using TennisLabel.Data;
 using TennisLabel.Logic;
+using TennisLabel.Repository;
+using TennisLabel.Services;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -37,9 +42,36 @@ namespace TennisLabel
         /// </summary>
         public App()
         {
+            Services = ConfigureServices();
             this.InitializeComponent();
             
         }
+
+        /// <summary>
+        /// Gets the current <see cref="App"/> instance in use
+        /// </summary>
+        public new static App Current => (App)Application.Current;
+
+        /// <summary>
+        /// Gets the <see cref="IServiceProvider"/> instance to resolve application services.
+        /// </summary>
+        public IServiceProvider Services { get; }
+
+        /// <summary>
+        /// Configures the services for the application.
+        /// </summary>
+        private static IServiceProvider ConfigureServices()
+        {
+            var services = new ServiceCollection();
+            services.AddTransient<TennisDbContext>();
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<IRepository<Customer>,CustomerRepository>();
+            services.AddTransient<ICustomerLogic, CustomerLogic>();
+            services.AddTransient<CustomerService>();
+
+            return services.BuildServiceProvider();
+        }
+
 
         /// <summary>
         /// Invoked when the application is launched.
@@ -47,7 +79,9 @@ namespace TennisLabel
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
-            m_window = new MainWindow();
+            CustomerService sv = Services.GetRequiredService<CustomerService>();
+            MainViewModel mainvm = new MainViewModel(sv);
+            m_window = new MainWindow(mainvm);
             m_window.Activate();
             
         }

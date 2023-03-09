@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TennisLabel.Data
+namespace TennisLabel.Data;
+
+public partial class String
 {
-    public partial class String
-    {
-        public String()
-        {
-            Products = new HashSet<Product>();
-        }
+    public long PkStringId { get; set; }
 
-        public int PkStringId { get; set; }
-        public string StringName { get; set; }
-        public string Brand { get; set; }
+    public string StringName { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; }
-    }
+    public string Brand { get; set; }
+
+    public virtual ICollection<Product> Products { get; } = new List<Product>();
 }

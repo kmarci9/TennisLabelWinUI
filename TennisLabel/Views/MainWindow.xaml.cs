@@ -30,10 +30,10 @@ namespace TennisLabel
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(MainViewModel mainViewModel)
         {
             this.InitializeComponent();
-            ViewModel = new MainViewModel();
+            ViewModel = mainViewModel;
         }
 
         public MainViewModel ViewModel { get; }

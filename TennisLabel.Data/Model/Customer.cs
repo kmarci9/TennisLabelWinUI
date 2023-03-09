@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TennisLabel.Data
+namespace TennisLabel.Data;
+
+public partial class Customer
 {
-    public partial class Customer
-    {
-        public Customer()
-        {
-            Orders = new HashSet<Order>();
-        }
+    public long PkCustomerId { get; set; }
 
-        public int PkCustomerId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Phone { get; set; }
-        public double? City { get; set; }
-        public int? PostalCode { get; set; }
-        public string Country { get; set; }
+    public string FirstName { get; set; }
 
-        public virtual ICollection<Order> Orders { get; set; }
-    }
+    public string LastName { get; set; }
+
+    public string Phone { get; set; }
+
+    public string City { get; set; }
+
+    public long? PostalCode { get; set; }
+
+    public string Country { get; set; }
+
+    public virtual ICollection<Order> Orders { get; } = new List<Order>();
 }

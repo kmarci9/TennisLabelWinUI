@@ -13,7 +13,7 @@ using TennisLabel.Services;
 
 namespace TennisLabel
 {
-    public partial class MainViewModel : ObservableRecipient
+    public partial class MainViewModel : ObservableObject
     {
 
         private CustomerService _customerService;
@@ -26,6 +26,12 @@ namespace TennisLabel
             Window custdetail = new CustomerDetailWindow(this,_customerService,null);
             custdetail.Activate();
 
+
+        }
+
+        [RelayCommand]
+        private void deleteCustomer()
+        {
 
         }
 
@@ -44,10 +50,10 @@ namespace TennisLabel
             
         }
 
-        public MainViewModel()
+        public MainViewModel(CustomerService service)
         {
-            this._customerService= new CustomerService();
-            Customers= new ObservableCollection<Customer>();
+            this._customerService = service;
+            Customers = new ObservableCollection<Customer>();
             
             Customers = _customerService.GetCustomersTable();
         }

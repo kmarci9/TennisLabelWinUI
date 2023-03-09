@@ -1,2 +1,4 @@
 ﻿
 Scaffold-DbContext "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\SCAVOK\source\repos\TennisLabel\TennisLabel.Data\TennisDB.mdf;Integrated Security=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Model
+
+Scaffold-DbContext "DataSource=C:\Users\SCAVOK\source\repos\TennisLabel\TennisLabel.Data\TennisDB.db;" Microsoft.EntityFrameworkCore.Sqlite -OutputDir Model2

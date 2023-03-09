@@ -7,9 +7,11 @@ using TennisLabel.Data;
 
 namespace TennisLabel.Repository
 {
-    public class CustomerRepository : ICustomerRepository, IRepository<Customer>
+    public class CustomerRepository : Repository<Customer>, ICustomerRepository
     {
-        private static TennisDBEntities database = new TennisDBEntities();
+
+        public CustomerRepository(TennisDbContext database) : base(database) { }
+
 
 
         public void ChangeFirstname(Customer tobechanged, string firstname)
@@ -24,34 +26,31 @@ namespace TennisLabel.Repository
             database.SaveChanges();
         }
 
-        public void Create(Customer item)
+        public override int Create(Customer item)
         {
             database.Set<Customer>().Add(item);
             database.SaveChanges();
+            int id = Convert.ToInt32(item.PkCustomerId);
+            return id;
         }
 
-        public void Delete(Customer customer)
+        public override Customer GetOne(int id)
         {
+            return database.Customers.SingleOrDefault(x => x.PkCustomerId == id);
+        }
 
-            database.Customers.Remove(customer);
+
+        public override void Update(Customer entity)
+        {
+            Customer c = GetOne(Convert.ToInt32(entity.PkCustomerId));
+            c.FirstName = entity.FirstName;
+            c.LastName = entity.LastName;
+            c.Phone = entity.Phone;
+            c.City = entity.City;
+            c.PostalCode = entity.PostalCode;
+            c.Country = entity.Country;
             database.SaveChanges();
         }
 
-        public Customer GetOne(int id)
-        {
-            return database.Customers.SingleOrDefault(x => x.PkCustomerId== id);
-        }
-
-        public List<Customer> GetTable()
-        {
-            return database.Customers.ToList();
-        }
-
-
-        public void Update(Customer entity)
-        {
-            database.Customers.Update(entity);
-            database.SaveChanges();
-        }
     }
 }
